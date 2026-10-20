@@ -1,0 +1,64 @@
+# ROS 2 / colcon workspace outputs (including nested workspaces)
+build/
+install/
+log/
+.colcon/
+.ros/
+
+# Python bytecode, packaging, and tool caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Local Python environments
+.venv/
+venv/
+env/
+
+# Raw datasets; keep dataset documentation under version control
+/data/*
+!/data/README.md
+*.bag
+*.db3
+*.db3-shm
+*.db3-wal
+*.db3-journal
+*.mcap
+
+# Downloaded neural-network weights and exported models
+*.pt
+*.pth
+*.onnx
+*.engine
+*.safetensors
+/runs/
+
+# Local environment settings; retain shareable templates
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Editor and operating-system temporary files
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Keep config/*.yaml and results/ available for submission.

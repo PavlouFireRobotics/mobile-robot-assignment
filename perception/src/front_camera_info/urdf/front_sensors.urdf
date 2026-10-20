@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="M20_Pro_front_sensors">
+  <link name="base_link_custom" />
+  <link name="front_camera_link" />
+  <link name="front_wide_angle_camera_frame" />
+  <link name="lidar_link" />
+  <joint name="front_camera_joint" type="fixed">
+    <parent link="base_link_custom" />
+    <child link="front_camera_link" />
+    <origin xyz="0.37646 0 0.03738" rpy="0 0 0" />
+  </joint>
+  <joint name="front_wide_angle_camera_optical_joint" type="fixed">
+    <parent link="front_camera_link" />
+    <child link="front_wide_angle_camera_frame" />
+    <origin xyz="0 0 0" rpy="-1.50079632679 0 -1.50079632679" />
+  </joint>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link_custom" />
+    <child link="lidar_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+</robot>

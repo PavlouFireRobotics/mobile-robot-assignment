@@ -1,0 +1,14 @@
+.git
+.agents
+.codex
+.aws
+data
+results
+build
+install
+log
+**/__pycache__
+**/*.egg-info
+**/*.pt
+.venv
+.pytest_cache
