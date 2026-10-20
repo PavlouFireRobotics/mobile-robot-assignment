@@ -8,11 +8,11 @@ The task covers camera calibration, ROS 2 integration, neural-network inference,
 
 ## Dataset setup
 
-The `data/` folder is not included in the GitHub repository. Before starting the assignment, download the dataset from [Google Drive](https://drive.google.com/drive/folders/1KTmbN1Ou_jriH-Uyqbd1o_9NuQ03Fl80?usp=drive_link) and manually place it in `perception/data/`.
+The `data/` folder is not included in the GitHub repository. Before starting the assignment, download the dataset from [Google Drive](https://drive.google.com/drive/folders/1KTmbN1Ou_jriH-Uyqbd1o_9NuQ03Fl80?usp=drive_link) and manually place it in `src/perception/data/`.
 
-Ensure the calibration images are in `perception/data/calibration_images/` and the ROS bag is in `perception/data/rosbag/`. Extract any downloaded archives before placing the files.
+Ensure the calibration images are in `src/perception/data/calibration_images/` and the ROS bag is in `src/perception/data/rosbag/`. Extract any downloaded archives before placing the files.
 
-All paths below are relative to the `perception/` directory containing this README.
+Unless otherwise stated, paths below are relative to the `src/perception/` directory containing this README.
 
 ## Supplied inputs
 
@@ -20,21 +20,23 @@ All paths below are relative to the `perception/` directory containing this READ
 | --- | --- | --- |
 | Calibration images | `data/calibration_images/` | Chessboard images captured with the recording camera. |
 | ROS 2 bag | `data/rosbag/` | `/m20/camera/front/image_raw`: 370 RGB images, 1280×720.<br>`/LIDAR/POINTS`: 371 clouds in `lidar_link`.<br>Recording duration: 41.2 seconds. |
-| Sensor URDF | `src/front_camera_info/urdf/front_sensors.urdf` | Fixed transforms connecting `lidar_link` to the camera optical frame, `front_wide_angle_camera_frame`, through `base_link_custom` and `front_camera_link`. |
+| Sensor URDF | `front_camera_info/urdf/front_sensors.urdf` | Fixed transforms connecting `lidar_link` to the camera optical frame, `front_wide_angle_camera_frame`, through `base_link_custom` and `front_camera_link`. |
 
 
 ## Part 0 | Docker environment
 
-Create a Dockerfile containing ROS 2 Humble and the dependencies needed to build and run your solution.
+Use the single repository-level Dockerfile required by the [root assignment README](../../README.md). It must contain ROS 2 Humble and all dependencies needed to build and run both assignment solutions.
 
-- Document the Docker build and run commands.
+- Document the shared Docker image build and run commands in your solution documentation.
 - Mount the dataset into the container rather than copying it into the image.
 - Save calibration and demonstration outputs to a mounted directory so they remain available after the container exits.
+- If you use multiple containers, provide a `compose.yaml` or `docker-compose.yml` at the repository root. Compose is optional when using a single container.
 
 Expected outputs:
-- Dockerfile
-- docker-compose.yml (optional)
-- `README.md` with instructions for building the Docker image and ROS 2 packages, performing camera calibration, playing back the ROS bag, and running the complete solution.
+
+- The shared `Dockerfile` at the repository root
+- `compose.yaml` or `docker-compose.yml` if the solution requires multiple containers
+- Candidate solution documentation with instructions for building the Docker image and ROS 2 packages, performing camera calibration, playing back the ROS bag, and running the complete solution
 
 ## Part 1 | Camera calibration
 
@@ -46,7 +48,7 @@ The tool must:
 
 - Detect chessboard corners and identify images that cannot be used.
 - Estimate camera intrinsics and lens distortion coefficients.
-- Save the calibration to `src/front_camera_info/config/camera_calibration.yaml`, including image dimensions and distortion model.
+- Save the calibration to `front_camera_info/config/camera_calibration.yaml`, including image dimensions and distortion model.
 - Report the overall RMS reprojection error in pixels.
 
 Include a visual example of the detected corners or calibration validation in `results/`. Explain any images you excluded and why.
@@ -54,7 +56,7 @@ Use a fisheye camera model. Hint: use `cv2.fisheye.calibrate`.
 
 Expected outputs:
 - `scripts/camera_calibration.py`
-- `src/front_camera_info/config/camera_calibration.yaml`
+- `front_camera_info/config/camera_calibration.yaml`
 - Visual examples in `results/`
 
 ## Part 2 | Camera information and TF publisher
@@ -64,7 +66,7 @@ Create a ROS 2 node inside the `front_camera_info` package that:
 - Loads the camera’s intrinsic parameters and distortion coefficients from a YAML configuration file.
 - Publishes the calibration as `sensor_msgs/msg/CameraInfo` on `/m20/camera/front/camera_info`.
 
-Create a launch file that starts the camera information node and a `robot_state_publisher` node to publish the TF transforms defined in `src/front_camera_info/urdf/front_sensors.urdf`.
+Create a launch file that starts the camera information node and a `robot_state_publisher` node to publish the TF transforms defined in `front_camera_info/urdf/front_sensors.urdf`.
 
 ## Part 3 | Person detection
 
@@ -99,12 +101,13 @@ Choose any suitable approach.
 | `/m20/camera/front/human/detections` | `vision_msgs/msg/Detection2DArray` | Person detections for each processed image. |
 | `/human/location` | `geometry_msgs/msg/PointStamped` | One 3D point per available person location estimate, in metres, with its timestamp and coordinate frame. |
 
+## Launch requirements
+
+Provide a ROS 2 launch file that starts all nodes needed for the complete perception pipeline. It may include the camera information and TF launch description required in Part 2. ROS bag playback may either be included in this launch system or documented as a separate command.
+
 ## Submission
 
-Submit your source code in a private GitHub repository and grant access to the following users:
-
-- DimitriosGkegkas
-- RoboKon9
+Submit this solution as part of the private GitHub repository described in the [root assignment README](../../README.md).
 
 ## Assessment
 

@@ -4,7 +4,8 @@ install/
 log/
 .colcon/
 .ros/
-
+# Ignore vscode config
+.vscode/
 # Python bytecode, packaging, and tool caches
 __pycache__/
 *.py[cod]
@@ -28,9 +29,9 @@ htmlcov/
 venv/
 env/
 
-# Raw datasets; keep dataset documentation under version control
-/data/*
-!/data/README.md
+# Raw perception dataset; keep dataset documentation under version control
+/src/perception/data/*
+!/src/perception/data/README.md
 *.bag
 *.db3
 *.db3-shm
