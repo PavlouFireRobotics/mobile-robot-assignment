@@ -57,9 +57,13 @@ The controller and action server must remain logically separated.
 
 Implement a custom ROS 2 action that accepts a target position `(x, y)` in Turtlesim coordinates.
 
-The turtle must autonomously navigate toward the target and report success when its distance to the target is within a configurable tolerance.
+The turtle must autonomously navigate toward the requested target and report success when its Euclidean distance to the target falls within a reasonable positional tolerance.
 
-You may choose your controller implementation. A simple proportional controller based on distance and heading error is sufficient.
+You may choose your preferred navigation controller. A simple proportional controller is sufficient, provided the turtle can reliably reach the requested 2D position within the selected tolerance.
+
+The positional tolerance must be configurable, and your chosen value should be documented and briefly justified.
+
+Final orientation is not evaluated, and advanced control algorithms are not required.
 
 Advanced path planning, obstacle avoidance, and orientation alignment at the target are not required.
 
