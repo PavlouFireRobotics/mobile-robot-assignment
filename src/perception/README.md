@@ -70,6 +70,7 @@ Create a launch file that starts the camera information node and a `robot_state_
 
 ## Part 3 | Person detection
 
+The rosbags provided for this assignment contain recorded data from the robot's sensors, including the front camera and LiDAR. Use these rosbags as the input for the person detection and human location estimation tasks.
 
 Use a pretrained neural network model to detect humans in the recorded images.
 
@@ -89,7 +90,7 @@ Expected outputs:
 
 Use the detected person bounding boxes and the LiDAR data provided in the ROS bag to estimate each detected person's approximate 3D location relative to the robot. Publish the estimated location as a 3D point on a ROS topic. Tracking and persistent person IDs are not required.
 
-Choose any suitable approach.
+Choose any suitable approach. Explain your method and reasoning in the submission documentation.
 
 
 ## Output topics and message contract
@@ -104,10 +105,6 @@ Choose any suitable approach.
 ## Launch requirements
 
 Provide a ROS 2 launch file that starts all nodes needed for the complete perception pipeline. It may include the camera information and TF launch description required in Part 2. ROS bag playback may either be included in this launch system or documented as a separate command.
-
-## Submission
-
-Submit this solution as part of the private GitHub repository described in the [root assignment README](../../README.md).
 
 ## Assessment
 

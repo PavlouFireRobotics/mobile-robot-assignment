@@ -12,7 +12,7 @@ Your submission must contain working solutions to **both parts**. Read the dedic
 - ROS 2 Humble
 - A Docker image based on Ubuntu 22.04 with ROS 2 Humble
 - C++ for the navigation task
-- Python or C++ for the perception task, unless a dedicated requirement states otherwise
+- Python or C++ for the perception task
 
 ## Repository and workspace structure
 
@@ -57,6 +57,12 @@ You may run the image as one container or as multiple containers. A single conta
 Do not copy the perception dataset into the image. Mount it at runtime, as described in the perception task. Generated results that should remain available after a container exits must also be written to a bind mount or Docker volume.
 
 If a component needs access to a graphical display, host networking, hardware acceleration, or another host resource, document the required Docker options and any platform assumptions.
+
+## Display from inside the Docker
+
+If you need to open graphical tools such as RViz or Turtlesim from a container, you can use direct X11 forwarding on a Linux desktop with an active X11 display. Pass the host's `DISPLAY` variable into the container and mount both the X11 socket directory (`/tmp/.X11-unix`) and the desktop session's X11 authentication file. This allows the application to display its window on the host. See the [ROS Docker GUI tutorial](https://wiki.ros.org/docker/Tutorials/GUI).
+
+Install the required GUI packages in your Dockerfile; configure display forwarding when starting the container. Document the exact startup commands and host prerequisites for your solution.
 
 ## Build and launch requirements
 
